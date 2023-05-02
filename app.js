@@ -23,7 +23,7 @@ const NAME_COLS = [
 ];
 
 //unzip();
-const PATH_FILE = path.join(__dirname, 'extracted','CL-Registro-precios-DMA-V-CCA-CCE-2023.zip');
+const PATH_FILE = path.join(__dirname, 'extracted','CL-Registro-precios-DMA-V-CCA-CCE-2023_0.xlsx');
 
 const workbook = new ExcelJS.Workbook();
 
