@@ -5,7 +5,7 @@ const moment = require('moment');
 const mysql  = require('mysql');
 //const unzip = require('./unzip');
 
-const DBConfig = require('./DBconfig');
+//const DBConfig = require('./DBconfig');
 
 const NAME_COLS = [
     'ACTIVIDAD',
