@@ -7,7 +7,7 @@ const fs = require('fs');
 const JSZip = require('JSZip');
 
 const DBConfig = require('DBconfig');
-const connection = mysql.createConnection(DBConfig);
+//const connection = mysql.createConnection(DBConfig);
 /*
 const nameFile = 'CL-Registro-precios-DMA-V-CCA-CCE-2023.zip';
 const PATH_FILE_FROM_EXTRACT = path.join(__dirname, '/',nameFile);
@@ -76,7 +76,7 @@ workbook.xlsx.readFile(PATH_FILE)
 
         //clear
         let  QUERY = 'TRUNCATE `registros`;';
-        connection.query(QUERY);
+        //connection.query(QUERY);
 
         const chunkSize = 1000;
         const  sqlHeader = `INSERT INTO registros(ACTIVIDAD,
@@ -133,7 +133,7 @@ workbook.xlsx.readFile(PATH_FILE)
             QUERY = `${sqlHeader} VALUES ${sqlBody}`.slice(0, -1)+ ';'.replace('\n');
             //connection.query(QUERY);
         }
-        connection.end();
+        //connection.end();
        
     })
     .catch((error) => {
