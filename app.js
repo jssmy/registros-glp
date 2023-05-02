@@ -4,7 +4,9 @@ const ExcelJS = require('exceljs');
 const moment = require('moment');
 const mysql  = require('mysql');
 const fs = require('fs');
-var JSZip = require('JSZip');
+const JSZip = require('JSZip');
+
+const DBConfig = require('DBconfig');
 
 const nameFile = 'CL-Registro-precios-DMA-V-CCA-CCE-2023.zip';
 const PATH_FILE_FROM_EXTRACT = path.join(__dirname, '/',nameFile);
@@ -25,13 +27,8 @@ fs.readFile( PATH_FILE_FROM_EXTRACT, function(err, data){
     }
 });
 
-return;
-const connection = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: '',
-    database: 'registros_corp'
-});
+
+const connection = mysql.createConnection(DBConfig);
 
 const NAME_COLS = [
     'ACTIVIDAD',
