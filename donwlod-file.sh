@@ -1,4 +1,4 @@
-folder = "extracted";
+folder="extracted"
 if [! -d "$HOME/$folder" ]
 then
   echo "Folder no existe $HOME/$folder"
