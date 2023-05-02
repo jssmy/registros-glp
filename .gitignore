@@ -2,6 +2,5 @@
 extracted/*
 log.txt
 node_modules
-package-lock.json
 .gitignore
 DBconfig.js
