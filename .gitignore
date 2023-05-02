@@ -4,3 +4,4 @@ log.txt
 node_modules
 .gitignore
 DBconfig.js
+*.zip
