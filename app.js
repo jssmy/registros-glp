@@ -3,32 +3,9 @@ const path = require('path')
 const ExcelJS = require('exceljs');
 const moment = require('moment');
 const mysql  = require('mysql');
-const fs = require('fs');
-const JSZip = require('JSZip');
+const unzip = require('./unzip');
 
-const DBConfig = require('DBconfig');
-//const connection = mysql.createConnection(DBConfig);
-/*
-const nameFile = 'CL-Registro-precios-DMA-V-CCA-CCE-2023.zip';
-const PATH_FILE_FROM_EXTRACT = path.join(__dirname, '/',nameFile);
-const PATH_FILE_TO_EXTRAC = path.join(__dirname, '/','extracted');
-
-fs.readFile( PATH_FILE_FROM_EXTRACT, function(err, data){
-    if (!err){
-        var zip = new JSZip();
-        zip.loadAsync(data).then(function (contents) {
-            const filenames = Object.keys(contents.files);
-            const filename = filenames[filenames.length - 1];
-            zip.file(filename).async('nodebuffer').then(function(content) {
-                var dest = PATH_FILE_TO_EXTRAC +'/'+ 'file.xlsx';
-                console.log(dest);
-                fs.writeFileSync(dest, content);
-            });
-        })
-    }
-});
-
-*/
+const DBConfig = require('./DBconfig');
 
 const NAME_COLS = [
     'ACTIVIDAD',
@@ -45,7 +22,7 @@ const NAME_COLS = [
     'UNIDAD'
 ];
 
-
+//unzip();
 const PATH_FILE = path.join(__dirname, 'extracted','CL-Registro-precios-DMA-V-CCA-CCE-2023.zip');
 
 const workbook = new ExcelJS.Workbook();
