@@ -1,0 +1,27 @@
+{
+  "name": "unzip",
+  "version": "1.0.0",
+  "description": "",
+  "main": "DBconfig.js",
+  "dependencies": {
+    "exceljs": "^4.3.0",
+    "jszip": "^3.10.1",
+    "moment": "^2.29.4",
+    "mysql": "^2.18.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jssmy/registros-glp.git"
+  },
+  "keywords": [],
+  "author": "aarancis",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jssmy/registros-glp/issues"
+  },
+  "homepage": "https://github.com/jssmy/registros-glp#readme"
+}
