@@ -1,6 +1,6 @@
 folder="$HOME/cron/registros-glp/extracted"
 
-if [! -d  "$folder"]
+if [ ! -d  $folder ]
 then
   echo "Folder no existe $folder"
   mkdir $folder
