@@ -7,7 +7,8 @@ const fs = require('fs');
 const JSZip = require('JSZip');
 
 const DBConfig = require('DBconfig');
-
+const connection = mysql.createConnection(DBConfig);
+/*
 const nameFile = 'CL-Registro-precios-DMA-V-CCA-CCE-2023.zip';
 const PATH_FILE_FROM_EXTRACT = path.join(__dirname, '/',nameFile);
 const PATH_FILE_TO_EXTRAC = path.join(__dirname, '/','extracted');
@@ -27,8 +28,7 @@ fs.readFile( PATH_FILE_FROM_EXTRACT, function(err, data){
     }
 });
 
-
-const connection = mysql.createConnection(DBConfig);
+*/
 
 const NAME_COLS = [
     'ACTIVIDAD',
@@ -46,7 +46,7 @@ const NAME_COLS = [
 ];
 
 
-const PATH_FILE = path.join(__dirname, 'extracted','file.xlsx');
+const PATH_FILE = path.join(__dirname, 'extracted','CL-Registro-precios-DMA-V-CCA-CCE-2023.zip');
 
 const workbook = new ExcelJS.Workbook();
 
@@ -118,7 +118,8 @@ workbook.xlsx.readFile(PATH_FILE)
                 try { 
 
                      QUERY = `${sqlHeader} VALUES ${sqlBody}`.slice(0, -1)+ ';'.replace('\n');
-                    connection.query(QUERY);
+                    //connection.query(QUERY);
+
                     sqlBody = '';
                 } catch(e) {
                     console.error(e);
@@ -130,7 +131,7 @@ workbook.xlsx.readFile(PATH_FILE)
         if(sqlBody) { // insertar lo que queda
             console.log('--insertar--');
             QUERY = `${sqlHeader} VALUES ${sqlBody}`.slice(0, -1)+ ';'.replace('\n');
-            connection.query(QUERY);
+            //connection.query(QUERY);
         }
         connection.end();
        
