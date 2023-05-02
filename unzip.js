@@ -6,7 +6,7 @@ const PATH_FILE_FROM_EXTRACT = path.join(__dirname, '/',nameFile);
 const PATH_FILE_TO_EXTRAC = path.join(__dirname, '/','extracted');
 
 
-const unzipFile = () => {
+const unzip = () => {
     fs.readFile( PATH_FILE_FROM_EXTRACT, function(err, data){
         if (!err){
             var zip = new JSZip();
@@ -23,4 +23,4 @@ const unzipFile = () => {
     });
 };
 
-module.exports = unzipFile;
+module.exports = unzip;
