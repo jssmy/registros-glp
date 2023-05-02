@@ -1,4 +1,4 @@
-if [ -d "extracted" ]
+if [! -d "extracted" ]
 then
   mkdir "extracted"
 fi
