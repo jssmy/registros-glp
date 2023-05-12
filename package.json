@@ -4,11 +4,9 @@
   "description": "",
   "main": "DBconfig.js",
   "dependencies": {
-    "exceljs": "^4.3.0",
-    "jszip": "^3.10.1",
+    "event-stream": "^4.0.1",
     "moment": "^2.29.4",
-    "mysql": "^2.18.1",
-    "xlsx": "^0.18.5"
+    "mysql": "^2.18.1"
   },
   "devDependencies": {},
   "scripts": {

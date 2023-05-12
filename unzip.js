@@ -1,5 +1,5 @@
 const fs = require('fs');
-const JSZip = require('JSZip');
+//const JSZip = require('JSZip');
 
 const nameFile = 'CL-Registro-precios-DMA-V-CCA-CCE-2023.zip';
 const PATH_FILE_FROM_EXTRACT = path.join(__dirname, '/',nameFile);

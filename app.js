@@ -1,11 +1,12 @@
-
 const path = require('path')
 const ExcelJS = require('exceljs');
 const moment = require('moment');
 const mysql  = require('mysql');
 //const unzip = require('./unzip');
 
-//const DBConfig = require('./DBconfig');
+const DBConfig = require('./DBconfig');
+
+const connection = mysql.createConnection(DBConfig);
 
 const NAME_COLS = [
     'ACTIVIDAD',
@@ -53,7 +54,7 @@ workbook.xlsx.readFile(PATH_FILE)
 
         //clear
         let  QUERY = 'TRUNCATE `registros`;';
-        //connection.query(QUERY);
+        connection.query(QUERY);
 
         const chunkSize = 1000;
         const  sqlHeader = `INSERT INTO registros(ACTIVIDAD,
@@ -95,7 +96,7 @@ workbook.xlsx.readFile(PATH_FILE)
                 try { 
 
                      QUERY = `${sqlHeader} VALUES ${sqlBody}`.slice(0, -1)+ ';'.replace('\n');
-                    //connection.query(QUERY);
+                    connection.query(QUERY);
 
                     sqlBody = '';
                 } catch(e) {
@@ -108,9 +109,9 @@ workbook.xlsx.readFile(PATH_FILE)
         if(sqlBody) { // insertar lo que queda
             console.log('--insertar--');
             QUERY = `${sqlHeader} VALUES ${sqlBody}`.slice(0, -1)+ ';'.replace('\n');
-            //connection.query(QUERY);
+            connection.query(QUERY);
         }
-        //connection.end();
+        connection.end();
        
     })
     .catch((error) => {
