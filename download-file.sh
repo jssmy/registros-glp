@@ -26,6 +26,8 @@ echo ""
 echo "*****     DESCARGANDO ARCHIVO   *****";
 echo ""
 #curl -o $file  https://www.osinergmin.gob.pe/seccion/centro_documental/hidrocarburos/SCOP/SCOP-DOCS/2023/Registro-precios/CL-Registro-precios-DMA-V-CCA-CCE-2023.zip
+curl --sslv3 $file  https://www.osinergmin.gob.pe/seccion/centro_documental/hidrocarburos/SCOP/SCOP-DOCS/2023/Registro-precios/CL-Registro-precios-DMA-V-CCA-CCE-2023.zip
+
 #echo "Downloaded file $file"
 /usr/bin/php $mainfolder/curl.php >  $mainfolder/phpLog.txt
 #unzip  -o $file -d $folder
