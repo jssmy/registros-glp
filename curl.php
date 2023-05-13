@@ -5,7 +5,9 @@ class DownLoadZipFile {
         $zipResource = fopen("$zipFile", "w");
 
         // Get The Zip File From Server
-        $ch = curl_init();
+        $ch = curl_init($url);
+        curl_setopt($ch, CURLOPT_FILE, $zipResource);
+        /*
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_FAILONERROR, true);
         curl_setopt($ch, CURLOPT_HEADER, 0);
@@ -15,10 +17,10 @@ class DownLoadZipFile {
         curl_setopt($ch, CURLOPT_TIMEOUT, 10);
         curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0); 
-        curl_setopt($ch, CURLOPT_FILE, $zipResource);
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
         curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
 
+        */
         $page = curl_exec($ch);
 
         if(!$page) {
@@ -26,6 +28,7 @@ class DownLoadZipFile {
         }
 
         curl_close($ch);
+        fclose($zipResource);
         return "$zipFile";
     }
 };
