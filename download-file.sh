@@ -31,16 +31,12 @@ rm -f "$folder/file.txt"
 rm -f $file
 echo ""
 echo "*****     EXTRACION DE ARCHIVO   *****";
-#unzip "$folder/$excelName" -d $folder
-#unzip -p "$folder/$excelName"  xl/worksheets/sheet1.xml | sed -e 's/<[^>]\{1,\}>//g;s/[^[:print:]] \{1,\}/|/g' > "$folder/file.txt"
-#unzip -p "$folder/$excelName"  xl/worksheets/sheet1.xml | sed -e 's/.*<row r="\([0-9]\+\)".*/\1,/p; s/<\/\?[^>]\+>//g; s/^,//p' > archivo.csv
 
 unzip -p "$folder/$excelName"  xl/worksheets/sheet1.xml > "$folder/file.txt"
-#unzip -p "$folder/$excelName"  xl/worksheets/sheet1.xml > "$folder/file.txt"
 
-
-##unzip -p "$folder/$excelName"  xl/worksheets/sheet1.xml | sed -e 's/.*<t>\([^<]*\)<\/t>.*/\1/g' > "$folder/file.txt"
-node process-file.js
+echo ""
+echo "*****     EXTRACIÓN DE DATOS   *****";
+node app.js
 
 
 

@@ -1,119 +1,148 @@
+//const Queue = require('bull');
+const fs = require('fs')
+const es = require('event-stream')
 const path = require('path')
-const ExcelJS = require('exceljs');
 const moment = require('moment');
-const mysql  = require('mysql');
-//const unzip = require('./unzip');
+const mysql = require('mysql');
+const Utils = require('./utils');
+
+const PATH_FILE = path.join(__dirname, 'extracted','file.txt')
+
+const transformData = (data) => {
+  const texto = data;
+  const regex = /<(t|v)(\s[^>]*)?>(.*?)<\/\1>/g;
+  return texto.match(regex)
+};
+
+
+
+
+var index = 0;
+var countRegister = 0;
+
+const NAME_COLS = [
+  'ACTIVIDAD',
+  'REGISTRO_DE_HIDROCARBUROS',
+  'RUC',
+  'RAZON_SOCIAL',
+  'DEPARTAMENTO',
+  'PROVINCIA',
+  'DISTRITO',
+  'DIRECCION',
+  'FECHA_DE_REGISTRO',
+  'PRODUCTO',
+  'PRECIO_DE_VENTA',
+  'UNIDAD'
+];
 
 const DBConfig = require('./DBconfig');
 
-const connection = mysql.createConnection(DBConfig);
+let connection = mysql.createConnection(DBConfig);
 
-const NAME_COLS = [
-    'ACTIVIDAD',
-    'REGISTRO_DE_HIDROCARBUROS',
-    'RUC',
-    'RAZON_SOCIAL',
-    'DEPARTAMENTO',
-    'PROVINCIA',
-    'DISTRITO',
-    'DIRECCION',
-    'FECHA_DE_REGISTRO',
-    'PRODUCTO',
-    'PRECIO_DE_VENTA',
-    'UNIDAD'
-];
 
-//unzip();
-const PATH_FILE = path.join(__dirname, 'extracted','CL-Registro-precios-DMA-V-CCA-CCE-2023_0.xlsx');
+const  sqlHeader = `INSERT INTO registros(ACTIVIDAD,
+  REGISTRO_DE_HIDROCARBUROS,
+  RUC,
+  RAZON_SOCIAL,
+  DEPARTAMENTO,
+  PROVINCIA,
+  DISTRITO,
+  DIRECCION,
+  FECHA_DE_REGISTRO,
+  PRODUCTO,
+  PRECIO_DE_VENTA,
+  UNIDAD)`;
 
-const workbook = new ExcelJS.Workbook();
+let sqlBody = '';
 
-workbook.xlsx.readFile(PATH_FILE)
-    .then(() => {
-        const worksheet = workbook.getWorksheet(1);
-        // rest of the code goes here
-        const json = [];
+let  QUERY = 'TRUNCATE `registros`;';
+connection.query(QUERY);
+connection.end();
+
+
+const mainFunction = () => {
+    
+    fs.createReadStream(PATH_FILE ,"utf-8")
+    .pipe(es.split())    
+    .on('data', (data) => {
         
-        worksheet.eachRow({ includeEmpty: true }, function(row, rowNumber) {
-            const rowObject = {};
+        
+        const transformed =  transformData(data);
+          
+        if(!transformed) return;
+
+                
+        let [
+          actividad,
+          registro_hidrocarburos,
+          ruc,
+          razon_social,
+          departamento,
+          provincia,
+          distrito,
+          direccion,
+          fecha_registro,
+          producto,
+          precio,
+          unidad
+        ]  = transformed;
+        
+        if(actividad.length <= 1) return;
+          index ++;
+          fecha_registro = Utils.convertirFechaDeExcelANormal(parseInt(Utils.replaceWorseChars(fecha_registro))).format('Y-MM-DD');
+          
+          const beforeDay = moment().subtract(1, 'day').format('Y-MM-DD');
+          
+          // valid last day
+          if(fecha_registro == beforeDay) {
+
+            countRegister++;
+
+            actividad = Utils.replaceWorseChars(actividad);
+            registro_hidrocarburos = Utils.replaceWorseChars(registro_hidrocarburos);
+            ruc = Utils.replaceWorseChars(ruc);
+            razon_social = Utils.replaceWorseChars(razon_social);
+            departamento = Utils.replaceWorseChars(departamento);
+            provincia = Utils.replaceWorseChars(provincia);
+            distrito = Utils.replaceWorseChars(distrito);
+            direccion = Utils.replaceWorseChars(direccion);
             
-            row.eachCell({ includeEmpty: true }, function(cell, colNumber) {
-                rowObject[NAME_COLS[colNumber - 1]] = (cell.value.toString().replace(/[']+/g, '')).replace(/["]+/g, '');
-            });
+            producto = Utils.replaceWorseChars(producto);
+            precio = Utils.replaceWorseChars(precio);
+            unidad = Utils.replaceWorseChars(unidad);
+            
+            sqlBody+= `("${actividad}","${registro_hidrocarburos}", ${ruc},"${razon_social}", "${departamento}", "${provincia}", "${distrito}", "${direccion}", "${fecha_registro}", "${producto}", "${precio}", "${unidad}"),`
 
-            json.push(rowObject);
-        });
-
-        const data = json.filter((item) => {
-            const fechaRegistro = moment(item.FECHA_DE_REGISTRO);
-            const current = moment().subtract(1, 'day');
-            return fechaRegistro.format('YYYYMMDD') === current.format('YYYYMMDD');
-        })
-
-        console.log('cantidad a insertar =>', data.length);
-
-        //clear
-        let  QUERY = 'TRUNCATE `registros`;';
-        connection.query(QUERY);
-
-        const chunkSize = 1000;
-        const  sqlHeader = `INSERT INTO registros(ACTIVIDAD,
-                            REGISTRO_DE_HIDROCARBUROS,
-                            RUC,
-                            RAZON_SOCIAL,
-                            DEPARTAMENTO,
-                            PROVINCIA,
-                            DISTRITO,
-                            DIRECCION,
-                            FECHA_DE_REGISTRO,
-                            PRODUCTO,
-                            PRECIO_DE_VENTA,
-                            UNIDAD)`;
-
-        let sqlBody = '';
-        let chunkCount = 0;
-        const length = data.length;
-        for (let index = 0; index < length; index++) {
-            chunkCount = chunkCount + 1;
-            const item = data[index];
-            sqlBody += `("${item.ACTIVIDAD}",
-                    "${item.REGISTRO_DE_HIDROCARBUROS}",
-                    "${item.RUC}",
-                    "${item.RAZON_SOCIAL}",
-                    "${item.DEPARTAMENTO}",
-                    "${item.PROVINCIA}",
-                    "${item.DISTRITO}",
-                    "${item.DIRECCION}",
-                    "${moment(item.FECHA_DE_REGISTRO).format('Y-MM-DD')}",
-                    "${item.PRODUCTO}",
-                    "${item.PRECIO_DE_VENTA}",
-                    "${item.UNIDAD}"),`;
-            const controlChunk = ((index + 1) + chunkSize > length ? length - (index + 1) : chunkSize);
-            //console.log(controlChunk, chunkCount);
-            if(chunkCount === chunkSize) {
-                console.log('inseret => ', chunkCount, controlChunk);
-                chunkCount = 0;
-                try { 
-
-                     QUERY = `${sqlHeader} VALUES ${sqlBody}`.slice(0, -1)+ ';'.replace('\n');
+            if (countRegister === 500) {
+                try {
+                    connection = mysql.createConnection(DBConfig);
+                    QUERY = `${sqlHeader} VALUES ${sqlBody}`.slice(0,-1)+";"
+                    
                     connection.query(QUERY);
-
-                    sqlBody = '';
+                    connection.end();
+                    QUERY = "";
+                    sqlBody = "";
+                    countRegister = 0;
                 } catch(e) {
-                    console.error(e);
+                  console.error(e);
                 }
-                
-                
+                  
             }
-        }
-        if(sqlBody) { // insertar lo que queda
-            console.log('--insertar--');
-            QUERY = `${sqlHeader} VALUES ${sqlBody}`.slice(0, -1)+ ';'.replace('\n');
-            connection.query(QUERY);
-        }
+            
+
+          }
+         
+    }).on('end', () => {
+      console.log('-terminado-');
+      if(sqlBody) {
+        connection = mysql.createConnection(DBConfig);
+        QUERY = `${sqlHeader} VALUES ${sqlBody}`.slice(0,-1)+";"
+        connection.query(QUERY);
         connection.end();
-       
+      }
     })
-    .catch((error) => {
-        console.log('Error: ', error);
-    });
+}
+
+mainFunction()
+
+
