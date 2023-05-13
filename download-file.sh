@@ -1,4 +1,4 @@
-rootfolder="$HOME/app-process-file"
+mainfolder="$HOME/app-process-file"
 folder="$mainfolder/extracted"
 
 excelName="CL-Registro-precios-DMA-V-CCA-CCE-2023_0.xlsx"
