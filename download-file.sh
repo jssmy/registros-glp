@@ -28,13 +28,13 @@ echo ""
 #curl -o $file  https://www.osinergmin.gob.pe/seccion/centro_documental/hidrocarburos/SCOP/SCOP-DOCS/2023/Registro-precios/CL-Registro-precios-DMA-V-CCA-CCE-2023.zip
 #echo "Downloaded file $file"
 /usr/bin/php $mainfolder/curl.php
-unzip  -o $file -d $folder
+#unzip  -o $file -d $folder
 rm -f "$folder/file.txt"
 rm -f $file
 echo ""
 echo "*****     EXTRACION DE ARCHIVO   *****";
 
-unzip -p "$folder/$excelName"  xl/worksheets/sheet1.xml > "$folder/file.txt"
+#unzip -p "$folder/$excelName"  xl/worksheets/sheet1.xml > "$folder/file.txt"
 
 echo ""
 echo "*****     EXTRACIÓN DE DATOS   *****";
