@@ -1,3 +1,8 @@
+echo "**************************"
+echo "** PROBANDO CONECTIVIDAD**"
+echo "**************************"
+ping www.osinergmin.gob.pe
+echo ""
 mainfolder="$HOME/app-process-file"
 folder="$mainfolder/extracted"
 
