@@ -1,5 +1,5 @@
-#folder="$HOME/cron/registros-glp/extracted"
-folder="C:/laragon/www/unzip/extracted"
+folder="$HOME/cron/registros-glp/extracted"
+#folder="C:/laragon/www/unzip/extracted"
 excelName="CL-Registro-precios-DMA-V-CCA-CCE-2023_0.xlsx"
 file="$folder/file.zip"
 
@@ -24,9 +24,9 @@ rm  -rfv "$folder/"*
 echo ""
 echo "*****     DESCARGANDO ARCHIVO   *****";
 echo ""
-#curl -o $file  https://www.osinergmin.gob.pe/seccion/centro_documental/hidrocarburos/SCOP/SCOP-DOCS/2023/Registro-precios/CL-Registro-precios-DMA-V-CCA-CCE-2023.zip
-#echo "Downloaded file $file"
-php curl.php
+curl -o $file  https://www.osinergmin.gob.pe/seccion/centro_documental/hidrocarburos/SCOP/SCOP-DOCS/2023/Registro-precios/CL-Registro-precios-DMA-V-CCA-CCE-2023.zip
+echo "Downloaded file $file"
+##php curl.php
 unzip  -o $file -d $folder
 rm -f "$folder/file.txt"
 rm -f $file
