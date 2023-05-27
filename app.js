@@ -113,7 +113,7 @@ const mainFunction = () => {
             
             sqlBody+= `("${actividad}","${registro_hidrocarburos}", ${ruc},"${razon_social}", "${departamento}", "${provincia}", "${distrito}", "${direccion}", "${fecha_registro}", "${producto}", "${precio}", "${unidad}"),`
 
-            if (countRegister === 500) {
+            if (countRegister === 10) {
               console.log('***INSERT DATA***');
                 try {
                     connection = mysql.createConnection(DBConfig);
