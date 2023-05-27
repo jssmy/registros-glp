@@ -27,7 +27,8 @@ class Utils {
           .replace('<t xml:space="preserve">', '')
           .replace(/[']+/g, '')
           .replace(/["]+/g, '')
-          .replace(/[\x96]+/g, '');
+          .replace(/[\x96]+/g, '')
+          .replace(/[^a-zA-Z0-9\s]/g, '');
           
       };
       
