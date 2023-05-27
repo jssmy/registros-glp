@@ -37,7 +37,7 @@ unzip -p "$folder/$excelName"  xl/worksheets/sheet1.xml > "$folder/file.txt"
 
 echo ""
 echo "*****     EXTRACIÓN DE DATOS   *****";
-"$HOME/nodevenv/repositories/registros-glp/16/bin"/node  "$HOME/repositories/registros-glp/app.js
+"$HOME/nodevenv/repositories/registros-glp/16/bin"/node  "$HOME/repositories/registros-glp"/app.js
 
 
 
