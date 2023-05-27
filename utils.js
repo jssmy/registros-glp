@@ -20,7 +20,7 @@ class Utils {
 
     static replaceWorseChars = (value) => {
         if(!value) return value;
-        utf
+        
         return decodeURIComponent(escape(value))
         .replace('<t>', '')
           .replace('</t>', '')
@@ -49,10 +49,9 @@ class Utils {
           .replace('</v>', '')
           .replace('<t xml:space="preserve">', '')
           .replace(/[']+/g, '');
-          Text
+          
       }
 
-      static encode_utf8(s){ return unescape(encodeURIComponent(s));}
       
 }
 
