@@ -93,7 +93,7 @@ const mainFunction = () => {
           fecha_registro = Utils.convertirFechaDeExcelANormal(parseInt(Utils.replaceWorseChars(fecha_registro))).format('Y-MM-DD');
           
           const beforeDay = moment().subtract(1, 'days').format('Y-MM-DD');
-          
+          console.log(fecha_registro, beforeDay);
           if(fecha_registro == beforeDay) {
             console.log(beforeDay, fecha_registro);
             countRegister++;
