@@ -13,7 +13,7 @@ class Utils {
     }
 
     static convertirFechaDeExcelANormal(numeroDeSerieDeExcel) {
-        const fecha = moment('1900-01-01').add(numeroDeSerieDeExcel - 2, 'days');
+        const fecha = moment('1900-01-01').add(numeroDeSerieDeExcel - 1, 'days');
         return fecha;
       }
 
