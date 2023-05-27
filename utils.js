@@ -21,23 +21,15 @@ class Utils {
     static replaceWorseChars = (value) => {
         if(!value) return value;
         
-        return decodeURIComponent(escape(value))
-        .replace('<t>', '')
+        return decodeURIComponent(escape(value
+          .replace('<t>', '')
           .replace('</t>', '')
           .replace('<v>', '')
           .replace('</v>', '')
           .replace('<t xml:space="preserve">', '')
-          .replace('<t xml:space=\\preserve\\>', '')
           .replace(/[']+/g, '')
-          .replace(/["]+/g, '')
-          .replace(/[\x96]+/g, '')
-          .replace(/[\xC2]+/g, '')
-          .replace(/[\x92]+/g, '')
-          .replace(/[\x93]+/g, '')
-          .replace(/[\x91]+/g, '')
-          .replace(/[\x94]+/g, '')
-          .replace(/[\x95]+/g, '')
-          .replace(/[\xC2\x93]+/g, '');
+          .replace(/["]+/g, ''))
+          );
           
       };
 
