@@ -29,7 +29,9 @@ class Utils {
           .replace(/[\x96]+/g, '')
           .replace(/[\xC2]+/g, '')
           .replace(/[\x93]+/g, '')
+          .replace(/[\x91]+/g, '')
           .replace(/[\x94]+/g, '')
+          .replace(/[\x95]+/g, '')
           .replace(/[\xC2\x93]+/g, '');
           
       };
