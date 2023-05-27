@@ -21,6 +21,7 @@ class Utils {
     static replaceWorseChars = (value) => {
         if(!value) return value;
         
+      try {
         return decodeURIComponent(escape(value
           .replace('<t>', '')
           .replace('</t>', '')
@@ -32,6 +33,9 @@ class Utils {
           .replace(/["]+/g, '')
           .replace(/[^a-zA-Z0-9 .;,*-]/g, '');
           
+      } catch (error) {
+        throw new Error('error =>', error);
+      }
       };
 
       static replaceCharsInDate = (value) => {

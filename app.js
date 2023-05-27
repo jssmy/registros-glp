@@ -93,8 +93,8 @@ const mainFunction = () => {
           fecha_registro = Utils.convertirFechaDeExcelANormal(parseInt(Utils.replaceCharsInDate(fecha_registro))).format('Y-MM-DD');
           
           const beforeDay = moment().subtract(5,'hours')
-                            .subtract(1, 'days')
-                            .format('Y-MM-DD');
+                          .subtract(1, 'days')
+                          .format('Y-MM-DD');
           
           if(fecha_registro == beforeDay) {
             
