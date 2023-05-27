@@ -1,4 +1,4 @@
-folder="$HOME/cron/registros-glp/extracted"
+folder="$HOME/repositories/registros-glp/extracted"
 #folder="C:/laragon/www/unzip/extracted"
 excelName="CL-Registro-precios-DMA-V-CCA-CCE-2023_0.xlsx"
 file="$folder/file.zip"
