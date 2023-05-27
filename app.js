@@ -89,8 +89,8 @@ const mainFunction = () => {
         
         if(actividad.length <= 1) return;
           index ++;
-          console.log(Utils.replaceWorseChars(fecha_registro), parseInt(Utils.replaceWorseChars(fecha_registro)));
-          fecha_registro = Utils.convertirFechaDeExcelANormal(parseInt(Utils.replaceWorseChars(fecha_registro))).format('Y-MM-DD');
+          
+          fecha_registro = Utils.convertirFechaDeExcelANormal(parseInt(Utils.replaceCharsInDate(fecha_registro))).format('Y-MM-DD');
           
           const beforeDay = moment().subtract(1, 'days').format('Y-MM-DD');
           console.log(fecha_registro, beforeDay);

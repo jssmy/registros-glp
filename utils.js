@@ -30,6 +30,17 @@ class Utils {
           .replace(/[\\xC2\\x93]+/g, '');
           
       };
+
+      static replaceCharsInDate = (value) => {
+        if(!value) return value;
+
+        return value.replace('<t>', '')
+          .replace('</t>', '')
+          .replace('<v>', '')
+          .replace('</v>', '')
+          .replace('<t xml:space="preserve">', '')
+          .replace(/[']+/g, '');
+      }
       
 }
 
