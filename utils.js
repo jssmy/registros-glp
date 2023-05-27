@@ -22,13 +22,12 @@ class Utils {
         if(!value) return value;
         
       try {
-        return decodeURIComponent(escape(value
+        return unescape(value
           .replace('<t>', '')
           .replace('</t>', '')
           .replace('<v>', '')
           .replace('</v>', '')
           .replace('<t xml:space="preserve">', ''))
-          )
           .replace(/[']+/g, '')
           .replace(/["]+/g, '')
           .replace(/[^a-zA-Z0-9 .;,*-]/g, '');
