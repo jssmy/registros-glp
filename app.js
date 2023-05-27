@@ -14,7 +14,7 @@ const transformData = (data) => {
   return texto.match(regex)
 };
 
-
+console.log('PROCESS FILE => ',PATH_FILE);
 
 
 var index = 0;
@@ -114,6 +114,7 @@ const mainFunction = () => {
             sqlBody+= `("${actividad}","${registro_hidrocarburos}", ${ruc},"${razon_social}", "${departamento}", "${provincia}", "${distrito}", "${direccion}", "${fecha_registro}", "${producto}", "${precio}", "${unidad}"),`
 
             if (countRegister === 500) {
+              console.log('***INSERT DATA***');
                 try {
                     connection = mysql.createConnection(DBConfig);
                     QUERY = `${sqlHeader} VALUES ${sqlBody}`.slice(0,-1)+";"
