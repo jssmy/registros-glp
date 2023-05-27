@@ -27,6 +27,7 @@ class Utils {
           .replace('<v>', '')
           .replace('</v>', '')
           .replace('<t xml:space="preserve">', '')
+          .replace('<t xml:space=\\preserve\\>', '')
           .replace(/[']+/g, '')
           .replace(/["]+/g, '')
           .replace(/[\x96]+/g, '')
