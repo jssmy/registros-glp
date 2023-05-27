@@ -92,7 +92,9 @@ const mainFunction = () => {
           
           fecha_registro = Utils.convertirFechaDeExcelANormal(parseInt(Utils.replaceCharsInDate(fecha_registro))).format('Y-MM-DD');
           
-          const beforeDay = moment().subtract(1, 'days').format('Y-MM-DD');
+          const beforeDay = moment().subtract(5,'hours')
+                            .subtract(1, 'days')
+                            .format('Y-MM-DD');
           
           if(fecha_registro == beforeDay) {
             
@@ -110,10 +112,10 @@ const mainFunction = () => {
             producto = Utils.replaceWorseChars(producto);
             precio = Utils.replaceWorseChars(precio);
             unidad = Utils.replaceWorseChars(unidad);
-            console.log(direccion);
+            
             sqlBody+= `("${actividad}","${registro_hidrocarburos}", ${ruc},"${razon_social}", "${departamento}", "${provincia}", "${distrito}", "${direccion}", "${fecha_registro}", "${producto}", "${precio}", "${unidad}"),`
 
-            if (countRegister === 10) {
+            if (countRegister === 500) {
               console.log('***INSERT DATA***');
                 try {
                     connection = mysql.createConnection(DBConfig);
