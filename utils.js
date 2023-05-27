@@ -34,7 +34,8 @@ class Utils {
           .replace(/[^a-zA-Z0-9 .;,*-]/g, '');
           
       } catch (error) {
-        throw new Error('error =>', error);
+          console.log({value,error});
+        throw new Error('Error');
       }
       };
 
