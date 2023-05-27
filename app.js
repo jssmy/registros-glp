@@ -54,7 +54,7 @@ const  sqlHeader = `INSERT INTO registros(ACTIVIDAD,
   UNIDAD)`;
 
 let sqlBody = '';
-
+console.log('CLEAN DB');
 let  QUERY = 'TRUNCATE `registros`;';
 connection.query(QUERY);
 connection.end();
@@ -136,6 +136,7 @@ const mainFunction = () => {
     }).on('end', () => {
       console.log('-terminado-');
       if(sqlBody) {
+        console.log('INSERT LAST');
         connection = mysql.createConnection(DBConfig);
         QUERY = `${sqlHeader} VALUES ${sqlBody}`.slice(0,-1)+";"
         connection.query(QUERY);
