@@ -110,7 +110,7 @@ const mainFunction = () => {
             producto = Utils.replaceWorseChars(producto);
             precio = Utils.replaceWorseChars(precio);
             unidad = Utils.replaceWorseChars(unidad);
-            
+            console.log(unidad, actividad, direccion);
             sqlBody+= `("${actividad}","${registro_hidrocarburos}", ${ruc},"${razon_social}", "${departamento}", "${provincia}", "${distrito}", "${direccion}", "${fecha_registro}", "${producto}", "${precio}", "${unidad}"),`
 
             if (countRegister === 10) {
