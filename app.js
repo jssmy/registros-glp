@@ -95,7 +95,7 @@ const mainFunction = () => {
           const beforeDay = moment().subtract(1, 'days').format('Y-MM-DD');
           
           if(fecha_registro == beforeDay) {
-            console.log(beforeDay, fecha_registro);
+            
             countRegister++;
 
             actividad = Utils.replaceWorseChars(actividad);
@@ -110,7 +110,7 @@ const mainFunction = () => {
             producto = Utils.replaceWorseChars(producto);
             precio = Utils.replaceWorseChars(precio);
             unidad = Utils.replaceWorseChars(unidad);
-            console.log(unidad, actividad, direccion);
+            console.log(direccion);
             sqlBody+= `("${actividad}","${registro_hidrocarburos}", ${ruc},"${razon_social}", "${departamento}", "${provincia}", "${distrito}", "${direccion}", "${fecha_registro}", "${producto}", "${precio}", "${unidad}"),`
 
             if (countRegister === 10) {

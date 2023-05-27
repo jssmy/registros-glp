@@ -26,10 +26,11 @@ class Utils {
           .replace('</t>', '')
           .replace('<v>', '')
           .replace('</v>', '')
-          .replace('<t xml:space="preserve">', '')
+          .replace('<t xml:space="preserve">', ''))
+          )
           .replace(/[']+/g, '')
-          .replace(/["]+/g, ''))
-          );
+          .replace(/["]+/g, '')
+          .replace(/[^a-zA-Z0-9 .;,*]/g, '');        ;
           
       };
 
