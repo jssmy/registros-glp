@@ -90,7 +90,7 @@ const mainFunction = () => {
         if(actividad.length <= 1) return;
           index ++;
           fecha_registro = Utils.convertirFechaDeExcelANormal(parseInt(Utils.replaceWorseChars(fecha_registro))).format('Y-MM-DD');
-          
+          console.log(fecha_registro, beforeDay);
           const beforeDay = moment().subtract(1, 'day').format('Y-MM-DD');
           
           // valid last day
